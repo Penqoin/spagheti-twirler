@@ -16,6 +16,18 @@ type GameSettings = {
 
 type PlayerIndex = 0 | 1;
 
+type GameInputs = {
+    w: "up",
+    ArrowUp: "up",
 
+    s: "down",
+    ArrowDown: "down",
 
-export type { Player, InputKeys, GameSettings, PlayerIndex }
+    d: "right",
+    ArrowRight: "right",
+    
+    a: "left",
+    ArrowLeft: "left"
+}
+
+export type { Player, InputKeys, GameSettings, PlayerIndex, GameInputs }

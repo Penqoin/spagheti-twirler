@@ -1,10 +1,12 @@
 import React, { createContext, useContext, useState } from "react";
-import { GameSettings, Player, PlayerIndex } from "../types" 
+import { GameInputs, GameSettings, Player, PlayerIndex } from "../types" 
 
 interface GameContextType {
     players: [Player, Player];
+    gameSettings: GameSettings;
+    GAME_INPUTS: GameInputs;
 
-    changeGameRunningState: () => void;
+    changeGameRunningState: (state: boolean) => void;
     increaseGameDuration: (newDuration: number) => void;
 
     registerPlayerHit: (playerIndex: PlayerIndex) => void;
@@ -35,11 +37,26 @@ const GameProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
         isRunning: false
     });
 
-    const changeGameRunningState = () => {
-        setGameSettings(_prev => ({
-            ..._prev,
-            isRunning: !_prev.isRunning
-        }));
+    const GAME_INPUTS: GameInputs = {
+        w: "up",
+        ArrowUp: "up",
+
+        s: "down",
+        ArrowDown: "down",
+
+        d: "right",
+        ArrowRight: "right",
+        
+        a: "left",
+        ArrowLeft: "left"
+    };
+
+    const changeGameRunningState = (state: boolean) => {
+        setGameSettings(_prev => {
+            const newSettings = {..._prev};
+            newSettings.isRunning = state 
+            return newSettings;
+        });
     };
 
     const increaseGameDuration = (newDuration: number): void => {
@@ -72,18 +89,20 @@ const GameProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
                 points: newPlayers[playerIndex].points - 1,
             };
             return newPlayers;
-        })
+        });
     }
 
     return <GameContext.Provider
-        value={{
-            players,
-            changeGameRunningState,
-            increaseGameDuration,
-            registerPlayerHit,
-            registerPlayerMiss
-        }}
-    >
+            value={{
+                players,
+                gameSettings,
+                GAME_INPUTS,
+                changeGameRunningState,
+                increaseGameDuration,
+                registerPlayerHit,
+                registerPlayerMiss
+            }}
+        >
         {children}
     </GameContext.Provider>
 }
