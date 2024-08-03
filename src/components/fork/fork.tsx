@@ -7,7 +7,7 @@ interface ForkProps {
 
 
 const Fork: React.FC<ForkProps> = () => {
-    return <div className="fork">
+    return <div className="fork debug">
         <div className="fork-bottom" />
         <div className="fork-handle" />
         <div className="fork-head" />
