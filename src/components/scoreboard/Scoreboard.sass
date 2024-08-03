@@ -1,0 +1,44 @@
+@import '../../colors'
+    
+.scoreboard
+    width: 500px
+    height: 200px
+
+    position: relative
+    display: flex
+
+    font-size: $scoreboard-font-size
+
+    color: $scoreboard-text-color
+    background-color: $scoreborad-bg-color
+
+    span 
+        font-family: "Zen Dots", sans-serif
+
+    .player-score 
+        position: absolute
+        top: 50%
+        left: 50%
+
+        transform: translate(-50%, -20%)
+
+        font-family: "Zen Dots", sans-serif
+        font-size: 80px
+        font-weight: 900
+
+    div
+        height: 100%
+        width: 50%
+
+        position: relative
+
+        display: flex
+        flex-direction: column
+
+        &:nth-last-child(1)
+            border-left: $scoreboard-dividing-line-width / 2 solid black
+        &:nth-last-child(2)
+            border-right: $scoreboard-dividing-line-width / 2 solid black
+    
+            
+

@@ -11,7 +11,6 @@ interface SpaghettiGameLogic {
     players: [Player, Player];
     currentKey: InputKeys | null;
     changeGameRunning: () => void;
-    startGame: () => void;
 }
 
 const useSpaghettiGameLogic = (): SpaghettiGameLogic => {
@@ -42,12 +41,14 @@ const useSpaghettiGameLogic = (): SpaghettiGameLogic => {
         isRunning: false
     })
 
-    const startGame = () => {
-        startTime.current = Date.now();
-        window.addEventListener('keydown', handlePlayerInputs);
+    useEffect(() => {
+        if (gameSettings.isRunning) {
+            startTime.current = Date.now();
+            window.addEventListener('keydown', handlePlayerInputs);
 
-        requestAnimationFrame(gameLoop);
-    }
+            requestAnimationFrame(gameLoop);
+        }
+    }, [gameSettings])
 
     const changeGameRunning = () => {
         setGameSettings(_prev => {_prev.isRunning = !_prev.isRunning; return _prev;});
@@ -167,7 +168,6 @@ const useSpaghettiGameLogic = (): SpaghettiGameLogic => {
         players,
         currentKey,
         changeGameRunning,
-        startGame
     }
 }
 

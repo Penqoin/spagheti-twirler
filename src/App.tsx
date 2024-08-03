@@ -4,19 +4,20 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import Fork from './components/fork/fork'
 import useSpaghettiGameLogic from './hooks/useSpaghettiGameLogic'
+import ScoreBoard from './components/scoreboard/ScoreBoard'
 
 function App() {
     const {
         changeGameRunning,
-        startGame
     } = useSpaghettiGameLogic();
 
     useEffect(() => {
-        startGame();
+        changeGameRunning();
     }, [])
   return (
     <>
-        <Fork /> 
+        <Fork />
+        <ScoreBoard player1Score={23} player2Score={2} />
     </>
   )
 }
