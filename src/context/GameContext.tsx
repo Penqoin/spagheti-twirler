@@ -85,8 +85,8 @@ const GameProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
             const newPlayers: [Player, Player] = [..._curr];
             newPlayers[playerIndex] = {
                 ...newPlayers[playerIndex],
-                hits: newPlayers[playerIndex].hits - 1,
-                points: newPlayers[playerIndex].points - 1,
+                misess: newPlayers[playerIndex].misess + 1,
+                points: newPlayers[playerIndex].points === 0 ? 0 : (newPlayers[playerIndex].points - 1),
             };
             return newPlayers;
         });

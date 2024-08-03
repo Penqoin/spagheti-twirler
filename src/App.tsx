@@ -25,7 +25,6 @@ function App() {
     <>
         <Fork />
         <ScoreBoard />
-        <button onClick={() => registerPlayerHit(0)}>+</button>
     </>
   )
 }

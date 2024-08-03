@@ -19,8 +19,6 @@ const useGameLogic = (): GameLogicProps => {
     let prevTime = 0;
     let currentKey: InputKeys | null = null
 
-    const [hasPressed, setHasPressed] = useState<boolean>(false);
-    
     useEffect(() => {
         if (gameSettings.isRunning) {
             prevTime = Date.now();
@@ -32,7 +30,6 @@ const useGameLogic = (): GameLogicProps => {
     
     const mainLoop = () => {
         const timeElapsed = Date.now() - prevTime;
-        console.log(timeElapsed)
 
         if (timeElapsed >= gameSettings.duration) {
             if (requestRef.current !== null)
@@ -51,10 +48,7 @@ const useGameLogic = (): GameLogicProps => {
     }
 
     const updateKey = () => {
-        if (hasPressed) {
-            setHasPressed(false);
-            currentKey = null;
-        } else if (currentKey === null) {
+        if (currentKey === null) {
             const key = Math.ceil(Math.random() * 4);
             switch (key) {
                 case 1:
@@ -73,13 +67,24 @@ const useGameLogic = (): GameLogicProps => {
     }
 
     const handlePlayerInputs = (e: KeyboardEvent) => {
-        if (GAME_INPUTS[e.key.toLowerCase() as keyof GameInputs] === currentKey) {
-            setHasPressed(true);
-            console.log('player1 scored')
-        } else if (GAME_INPUTS[e.key as keyof GameInputs] === currentKey) {
-            setHasPressed(true);
-            console.log('player 2 scored')
+        const input = GAME_INPUTS[e.key as keyof GameInputs];
+        
+        // check if player 1 has missed or hit
+        if (input !== undefined && input !== currentKey) {
+            if (e.key.length === 1)
+                registerPlayerMiss(0)
+            else
+                registerPlayerMiss(1)
         }
+
+        if (input === currentKey) {
+            if (e.key.length === 1)
+                registerPlayerHit(0)
+            else 
+                registerPlayerHit(1)
+        }
+
+        currentKey = null;
     }
 
     return {
