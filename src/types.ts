@@ -11,7 +11,7 @@ type GameSettings = {
     duration: number;
     fps: number;
     interval: number;
-    gameRunning: boolean;
+    isRunning: boolean;
 }
 
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 import { GameSettings, InputKeys, Player } from "../types"
 
@@ -10,10 +10,14 @@ interface SpaghettiGameLogicProps {
 interface SpaghettiGameLogic {
     players: [Player, Player];
     currentKey: InputKeys | null;
-    startGameLoop: () => void;
+    changeGameRunning: () => void;
+    startGame: () => void;
 }
 
 const useSpaghettiGameLogic = (): SpaghettiGameLogic => {
+    const requestRef = useRef<number>(0);
+    const startTime = useRef<number>(0);
+
     const [players, setPlayers] = useState<[Player, Player]>([
         {
             points: 0,
@@ -26,31 +30,44 @@ const useSpaghettiGameLogic = (): SpaghettiGameLogic => {
             misess: 0
         }
     ]);
+
+
     const [currentKey, setCurrentkey] = useState<InputKeys | null>(null)
+    const [playerHitKey, setPlayerHitKey] = useState<boolean>(false);
+
     const [gameSettings, setGameSettings] = useState<GameSettings>({
-        duration: 60 * 1000, // 1 minute in ms
+        duration: 20 * 1000, // 1 minute in ms
         fps: 60,
         interval: 1000 / 60,
-        gameRunning: false
+        isRunning: false
     })
-    
-    const startGameLoop = () => {
-        const startTime = Date.now();
+
+    const startGame = () => {
+        startTime.current = Date.now();
         window.addEventListener('keydown', handlePlayerInputs);
 
-        const gameLoop = setInterval(() => {
-            const currTime = Date.now();
-            const elapsedTime = currTime - startTime;
+        requestAnimationFrame(gameLoop);
+    }
+
+    const changeGameRunning = () => {
+        setGameSettings(_prev => {_prev.isRunning = !_prev.isRunning; return _prev;});
+    }
+
+    const gameLoop = () => {
+        const now = Date.now();
+        const elapsedTime = now - startTime.current;
+
+        if (elapsedTime >= gameSettings.duration) {
+            if (requestRef.current !== undefined)
+                cancelAnimationFrame(requestRef.current);
             
-            if (elapsedTime >= gameSettings.duration) {
-                clearInterval(gameLoop);
-                return;
-            }
+            window.removeEventListener('keydown', handlePlayerInputs);
+            return;
+        }
 
-            update();
-        }, gameSettings.interval)
-
-        window.removeEventListener('keydown', handlePlayerInputs);
+        update();
+        
+        requestRef.current = requestAnimationFrame(gameLoop);
     }
 
     const update = () => {
@@ -58,6 +75,12 @@ const useSpaghettiGameLogic = (): SpaghettiGameLogic => {
         if (currentKey === null) {
             getNextKey();
         }
+
+        if (playerHitKey) {
+            setCurrentkey(null);
+            setPlayerHitKey(false);
+        }
+        console.log(currentKey)
     }
 
      const getNextKey = () => {
@@ -78,15 +101,73 @@ const useSpaghettiGameLogic = (): SpaghettiGameLogic => {
 
 
     const handlePlayerInputs = (e: KeyboardEvent) => {
-        if (!gameSettings.gameRunning) return;
+        console.log(players[0].points, players[1].points)
 
+        switch (currentKey)
+        {
+            case "up":
+                if (e.key.toLowerCase() === 'w')
+                    givePlayerPoint(1);
+                else if (e.key === 'ArrowUp')
+                    givePlayerPoint(0);
+                else
+                    handlePlayersMiss();
+                break;
+            case "down":
+                if (e.key.toLowerCase() === 's')
+                    givePlayerPoint(1);
+                else if (e.key === 'ArrowDown')
+                    givePlayerPoint(0);
+                else
+                    handlePlayersMiss();
+                break;
+            case "left":
+                if (e.key.toLowerCase() === 'a')
+                    givePlayerPoint(1);
+                else if (e.key === 'ArrowLeft')
+                    givePlayerPoint(0);
+                else
+                    handlePlayersMiss();
+                break;
+            case "right":
+                if (e.key.toLowerCase() === 'd')
+                    givePlayerPoint(1);
+                else if (e.key === 'ArrowRight')
+                    givePlayerPoint(0);
+                else
+                    handlePlayersMiss();
+                break;
+            default:
+                handlePlayersMiss();
+        }
+    }
+
+    // TODO make player points not go to less then 0
+    const givePlayerPoint = (index: number) => {
+        setPlayerHitKey(true);
+        setPlayers(_curr => {
+            _curr[index].points += 1;
+            _curr[index].hits += 1;
+
+            _curr[Number(!index)].points -= 1; 
+            return _curr;
+        });
+    }
+
+    const handlePlayersMiss = () => {
+        setPlayers(_curr => {
+            _curr[0].misess++;
+            _curr[1].misess++;
+            return _curr;
+        });
     }
 
 
     return {
         players,
         currentKey,
-        startGameLoop
+        changeGameRunning,
+        startGame
     }
 }
 
