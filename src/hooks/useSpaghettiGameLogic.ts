@@ -30,8 +30,7 @@ const useSpaghettiGameLogic = (): SpaghettiGameLogic => {
         }
     ]);
 
-
-    const [currentKey, setCurrentkey] = useState<InputKeys | null>(null)
+    let currentKey: InputKeys | null = null;
     const [playerHitKey, setPlayerHitKey] = useState<boolean>(false);
 
     const [gameSettings, setGameSettings] = useState<GameSettings>({
@@ -78,26 +77,27 @@ const useSpaghettiGameLogic = (): SpaghettiGameLogic => {
         }
 
         if (playerHitKey) {
-            setCurrentkey(null);
+            currentKey = null;
             setPlayerHitKey(false);
         }
-        console.log(currentKey)
+        
     }
 
      const getNextKey = () => {
-        setCurrentkey(() => {
             const key = Math.ceil(Math.random() * 4);
             switch (key) {
                 case 1:
-                    return "up";
+                    currentKey = "up";
+                    break;
                 case 2:
-                    return "down";
+                    currentKey = "down";
+                    break;
                 case 3:
-                    return "left";
+                    currentKey = "left";
+                    break;
                 default: 
-                    return "right";
+                    currentKey = "right";
             }
-        });
     };
 
 
@@ -146,6 +146,7 @@ const useSpaghettiGameLogic = (): SpaghettiGameLogic => {
     // TODO make player points not go to less then 0
     const givePlayerPoint = (index: number) => {
         setPlayerHitKey(true);
+        console.log('player hi')
         setPlayers(_curr => {
             _curr[index].points += 1;
             _curr[index].hits += 1;

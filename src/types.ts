@@ -14,6 +14,8 @@ type GameSettings = {
     isRunning: boolean;
 }
 
+type PlayerIndex = 0 | 1;
 
 
-export type { Player, InputKeys, GameSettings }
+
+export type { Player, InputKeys, GameSettings, PlayerIndex }
