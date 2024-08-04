@@ -1,0 +1,55 @@
+.button-display
+    width: 350px
+    height: 230px
+
+    position: relative
+
+    span
+        position: absolute
+
+    .play-button 
+        width: 90px
+        height: 80px
+
+        display: flex
+        justify-content: center
+        align-items: center
+
+        margin: 5px
+        padding: 10px 0 10px 10px
+        
+        color: gray
+        font-family: 'Press Start 2p', sans-serif
+        font-size: 30pt
+        font-weight: bold
+        text-shadow: -1px -1px black, 1px 1px white
+
+        background-color: lightgray
+
+        -webkit-border-radius: 7px
+        -moz-border-radius: 7px
+        -o-border-radius: 7px
+        border-radius: 7px
+        box-shadow: 0 .2em gray
+
+        cursor: pointer
+
+        &:active
+            box-shadow: none
+            position: relative
+            top: .2em
+
+    .top-button
+        left: 50%
+        transform: translateX(-50%)
+    .left-button
+        top: 33.33%
+        left: 0
+    .right-button
+        right: 0
+        top: 33.33%
+    .bottom-button
+        bottom: 0
+        left: 50%
+        transform: translateX(-50%)
+

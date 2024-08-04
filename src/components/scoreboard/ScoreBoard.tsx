@@ -1,6 +1,5 @@
 import React from "react";
 import './Scoreboard.sass';
-import { Player } from "../../types";
 import { useGameContext } from "../../context/GameContext";
 
 
