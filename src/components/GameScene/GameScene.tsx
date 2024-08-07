@@ -29,7 +29,8 @@ const GameScene: React.FC<GameSceneProps> = () => {
     
     return <div>
         <span>{currentKey}</span>
-        <ButtonDisplay />
+        <ButtonDisplay letters={true} keypress={keypress} />
+        <ButtonDisplay letters={false} keypress={keypress} />
         <Fork />
         <ScoreBoard />
     </div>

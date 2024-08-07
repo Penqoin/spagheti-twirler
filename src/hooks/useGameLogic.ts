@@ -59,7 +59,6 @@ const useGameLogic = ({
 
         const input = GAME_INPUTS[keypress.key as keyof GameInputs];
         // check if player 1 has missed or hit
-        console.log(currentKey)
         if (input !== undefined && input !== currentKey) {
             if (keypress.key.length === 1)
                 registerPlayerMiss(0)

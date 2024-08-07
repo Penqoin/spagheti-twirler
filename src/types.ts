@@ -17,17 +17,17 @@ type GameSettings = {
 type PlayerIndex = 0 | 1;
 
 type GameInputs = {
-    w: "up",
-    ArrowUp: "up",
+    w: InputKeys,
+    ArrowUp: InputKeys,
 
-    s: "down",
-    ArrowDown: "down",
+    s: InputKeys,
+    ArrowDown: InputKeys,
 
-    d: "right",
-    ArrowRight: "right",
+    d: InputKeys,
+    ArrowRight: InputKeys,
     
-    a: "left",
-    ArrowLeft: "left"
+    a: InputKeys,
+    ArrowLeft: InputKeys
 }
 
 export type { Player, InputKeys, GameSettings, PlayerIndex, GameInputs }

@@ -1,3 +1,5 @@
+@import '../../colors.sass'
+
 .button-display
     width: 350px
     height: 230px
@@ -20,17 +22,17 @@
         
         color: gray
         font-family: 'Press Start 2p', sans-serif
-        font-size: 30pt
+        font-size: 45px
         font-weight: bold
         text-shadow: -1px -1px black, 1px 1px white
 
-        background-color: lightgray
+        background-color: $inactive-button-color
 
         -webkit-border-radius: 7px
         -moz-border-radius: 7px
         -o-border-radius: 7px
         border-radius: 7px
-        box-shadow: 0 .2em gray
+        box-shadow: 0 .2em $inactive-button-shadow
 
         cursor: pointer
 
@@ -45,11 +47,53 @@
     .left-button
         top: 33.33%
         left: 0
+        .arrow 
+            rotate: 270deg
     .right-button
         right: 0
         top: 33.33%
+        .arrow 
+            rotate: 90deg
+
     .bottom-button
         bottom: 0
         left: 50%
         transform: translateX(-50%)
 
+        .arrow 
+            transform: translateX(6px)
+            rotate: 180deg
+
+.up-button-color
+    color: white !important
+    background-color: $top-button-color !important
+    box-shadow: 0 .2em $top-button-shadow !important
+
+.down-button-color
+    color: white !important
+    background-color: $bottom-button-color !important
+    box-shadow: 0 .2em $bottom-button-shadow !important 
+
+.left-button-color
+    color: white !important
+    background-color: $left-button-color !important
+    box-shadow: 0 .2em $left-button-shadow !important 
+
+.right-button-color
+    color: white !important
+    background-color: $right-button-color !important
+    box-shadow: 0 .2em $right-button-shadow !important 
+
+.button-animate
+    animation: up-down 50ms linear
+
+@keyframes up-down
+    0%
+      top: 0
+
+    50% 
+        box-shadow: none
+        position: relative
+        top: .2em
+    100%
+        top: 0
