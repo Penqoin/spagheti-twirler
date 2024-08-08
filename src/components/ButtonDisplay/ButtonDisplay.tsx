@@ -20,10 +20,9 @@ const ButtonDisplay: React.FC<ButtonDisplayProps> = ({
 
 
     const handleAnimation = async () => {
-        if (letters && keypress?.key && keypress?.key.length > 1)
-            return;
-        else if (!letters && keypress?.key.length === 1)
-            return;
+        if (!keypress) return;
+        if (letters && keypress?.key && keypress?.key.length > 1) return;
+        if (!letters && keypress?.key.length === 1) return;
 
         const action: InputKeys = GAME_INPUTS[letters ? keypress.key.toLowerCase() as keyof GameInputs : keypress.key as keyof GameInputs];
         if (action) {

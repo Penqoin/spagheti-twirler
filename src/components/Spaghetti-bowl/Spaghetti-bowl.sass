@@ -2,7 +2,7 @@
 
 .spaghetti-bowl-container
     width: 300px
-    height: 400px
+    height: 170px
 
     position: relative
 
@@ -11,13 +11,10 @@
         height: 100px
 
         position: absolute
-        bottom: 80px
+        bottom: 70px
         left: 50%
         transform: translateX(-50%)
 
-        border: 1px solid red
-
-        
         .spaghetti-container
             &:nth-child(1)
                 top: 30px
@@ -107,18 +104,17 @@
             
 
 .spaghetti-bowl
-    width: 300px
-    height: 100px
+    width: 200px
+    height: 75px
+
+    display: block
 
     position: absolute
     bottom: 0
     left: 50%
     transform: translateX(-50%)
 
-    border-bottom-left-radius: 100%
-    border-bottom-right-radius: 100%
-
-    z-index: 2
-
-    background-color: $bowl-color
-
+    background: $bowl-color
+    border-radius: .2rem .2rem 3rem  3rem
+    border-bottom: 0.5rem solid $bowl-shadow
+    z-index: 0

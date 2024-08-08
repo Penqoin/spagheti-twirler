@@ -30,4 +30,9 @@ type GameInputs = {
     ArrowLeft: InputKeys
 }
 
-export type { Player, InputKeys, GameSettings, PlayerIndex, GameInputs }
+type PlayerDelta = {
+    index: PlayerIndex;
+    pointDelta: 1 | 0 | -1;
+}
+
+export type { Player, InputKeys, GameSettings, PlayerIndex, GameInputs, PlayerDelta }

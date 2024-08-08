@@ -1,10 +1,11 @@
 import React, { createContext, useContext, useState } from "react";
-import { GameInputs, GameSettings, Player, PlayerIndex } from "../types" 
+import { GameInputs, GameSettings, Player, PlayerDelta, PlayerIndex } from "../types" 
 
 interface GameContextType {
     players: [Player, Player];
     gameSettings: GameSettings;
     GAME_INPUTS: GameInputs;
+    playersDelta: PlayerDelta;
 
     changeGameRunningState: (state: boolean) => void;
     increaseGameDuration: (newDuration: number) => void;
@@ -30,9 +31,14 @@ const GameProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
         }
     ]);
 
+    const [playersDelta, setPlayerDelta] = useState<PlayerDelta>({
+        index: 0,
+        pointDelta: 0
+    });
+
     const [gameSettings, setGameSettings] = useState<GameSettings>({
         fps: 60,
-        duration: 60 * 1000,
+        duration: 600 * 1000,
         interval: 1000 / 60,
         isRunning: false
     });
@@ -69,6 +75,11 @@ const GameProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
     }
 
     const registerPlayerHit = (playerIndex: PlayerIndex): void => {
+        setPlayerDelta({
+            index: playerIndex,
+            pointDelta: 1
+        })
+        
         setPlayers(_curr => {
             const newPlayers: [Player, Player] = [..._curr];
             newPlayers[playerIndex] = {
@@ -81,6 +92,11 @@ const GameProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
     }
 
     const registerPlayerMiss = (playerIndex: PlayerIndex): void => {
+        setPlayerDelta({
+            index: playerIndex,
+            pointDelta: -1
+        })
+
         setPlayers(_curr => {
             const newPlayers: [Player, Player] = [..._curr];
             newPlayers[playerIndex] = {
@@ -97,6 +113,7 @@ const GameProvider: React.FC<{children: React.ReactNode}> = ({children}) => {
                 players,
                 gameSettings,
                 GAME_INPUTS,
+                playersDelta,
                 changeGameRunningState,
                 increaseGameDuration,
                 registerPlayerHit,
