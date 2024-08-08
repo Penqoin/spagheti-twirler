@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
-import ButtonDisplay from "../ButtonDisplay/ButtonDisplay";
-import Fork from "../fork/fork";
 import ScoreBoard from "../scoreboard/ScoreBoard";
 import { useGameContext } from "../../context/GameContext";
 import useGameLogic from "../../hooks/useGameLogic";
 import useEventListener from "../../hooks/useEventListener";
+
+import './GameScene.sass'
+import KeyDisplay from "../KeyDisplay/KeyDisplay";
+import PlayerScene from "../PlayerScene/PlayerScene";
 
 interface GameSceneProps {
 }
@@ -27,12 +29,14 @@ const GameScene: React.FC<GameSceneProps> = () => {
         changeGameRunningState(true)
     }, [])
     
-    return <div>
-        <span>{currentKey}</span>
-        <ButtonDisplay letters={true} keypress={keypress} />
-        <ButtonDisplay letters={false} keypress={keypress} />
-        <Fork />
+    return <div className="game-container">
         <ScoreBoard />
+        <KeyDisplay currentKey={currentKey} />
+
+        <div className="game-scene debug">
+            <PlayerScene Player1={true} keypress={keypress} />
+            <PlayerScene Player1={false} keypress={keypress} />
+        </div>
     </div>
 }
 

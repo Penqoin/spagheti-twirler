@@ -1,0 +1,124 @@
+@import '../../colors'
+
+.spaghetti-bowl-container
+    width: 300px
+    height: 400px
+
+    position: relative
+
+    .top-spaghetti-container 
+        width: 300px
+        height: 100px
+
+        position: absolute
+        bottom: 80px
+        left: 50%
+        transform: translateX(-50%)
+
+        border: 1px solid red
+
+        
+        .spaghetti-container
+            &:nth-child(1)
+                top: 30px
+                left: 20px
+                rotate: 20deg
+                scale: .7
+            &:nth-child(2)
+                top: 30px
+                left: 50px
+                rotate: -30deg
+                scale: .7
+            &:nth-child(3)
+                top: 10px
+                left: 10%
+                rotate: -30deg
+                scale: .5
+            &:nth-child(4)
+                top: 30px
+                left: -20%
+                rotate: 50deg
+                scale: .5
+            &:nth-child(5)
+                top: 10px
+                left: -20%
+                rotate: 20deg
+                scale: .5
+            &:nth-child(6)
+                top: 80%
+                left: 10%
+                rotate: 120deg
+                scale: .5
+            &:nth-child(7)
+                top: -20px
+                left: 0%
+                rotate: 0deg
+                scale: .7
+            &:nth-child(8)
+                top: 30px
+                left: 10%
+                rotate: 50deg
+                scale: .5
+            &:nth-child(9)
+                top: 120px
+                left: 30%
+                rotate: 160deg
+                scale: .7
+            &:nth-child(10)
+                top: 100px
+                left: -0%
+                rotate: 130deg
+                scale: .6
+            &:nth-child(11)
+                top: 104px
+                left: 21%
+                rotate: 231deg
+                scale: 0.4
+            &:nth-child(12)
+                top: 104px
+                left: 21%
+                rotate: 231deg
+                scale: 0.4
+            &:nth-child(13)
+                top: 115px
+                left: -39%
+                rotate: -117deg
+                scale: 0.4
+            &:nth-child(14)
+                top: 123px
+                left: 7%
+                rotate: 523deg
+                scale: .6
+            &:nth-child(15)
+                top: 94px
+                left: 43%
+                rotate: 129deg
+                scale: 0.5
+            &:nth-child(16)
+                top: 53px
+                left: -44%
+                rotate: 321deg
+                scale: 0.4
+            &:nth-child(17)
+                top: 44px
+                left: -44%
+                rotate: 669deg
+                scale: 0.4
+            
+
+.spaghetti-bowl
+    width: 300px
+    height: 100px
+
+    position: absolute
+    bottom: 0
+    left: 50%
+    transform: translateX(-50%)
+
+    border-bottom-left-radius: 100%
+    border-bottom-right-radius: 100%
+
+    z-index: 2
+
+    background-color: $bowl-color
+
